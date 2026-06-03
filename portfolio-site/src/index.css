@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #060a0f;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Subtle scrollbar to match the dark SOC console theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #060a0f;
+}
+::-webkit-scrollbar-thumb {
+  background: #1a2a3a;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a4a6a;
+}

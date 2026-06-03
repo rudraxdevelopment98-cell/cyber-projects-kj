@@ -8,6 +8,11 @@ demonstrate practical SOC analyst skills: SIEM detection engineering, cloud
 security auditing, and threat intelligence. Each project is self-contained with
 runnable code, documentation, and sample data.
 
+> 🖥️ **Interactive showcase:** an in-browser portfolio site lives in
+> [`portfolio-site/`](./portfolio-site) and auto-deploys to GitHub Pages →
+> `https://rudraxdevelopment98-cell.github.io/cyber-projects-kj/`
+> (enable Pages → "GitHub Actions" in repo settings to go live).
+
 ---
 
 ## 📁 Projects
