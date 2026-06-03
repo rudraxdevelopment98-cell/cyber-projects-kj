@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Environment / secrets
+.env
+*.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated triage output (samples are committed explicitly)
+01-soc-home-lab/scripts/triage_ticket.md
+
+# IDE
+.vscode/
+.idea/

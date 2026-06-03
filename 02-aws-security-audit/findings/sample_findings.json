@@ -1,0 +1,146 @@
+{
+  "account_id": "123456789012",
+  "note": "Sample findings generated from an intentionally misconfigured AWS Free Tier lab. Used by `python audit.py --demo`.",
+  "findings": [
+    {
+      "check_id": "IAM-001",
+      "name": "Root Account MFA Not Enabled",
+      "severity": "Critical",
+      "framework_mapping": "CIS AWS 1.5 / NIST AC-2",
+      "resource": "arn:aws:iam::root",
+      "description": "The AWS root account does not have multi-factor authentication enabled. The root account has unrestricted access to every resource in the account.",
+      "remediation": "Sign in as root, open the IAM security credentials page and enable a hardware or virtual MFA device. Avoid using root for daily tasks.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "S3-001",
+      "name": "S3 Bucket Publicly Accessible",
+      "severity": "Critical",
+      "framework_mapping": "CIS AWS 2.1.5 / NIST SC-7",
+      "resource": "s3://kj-lab-public-assets",
+      "description": "Bucket 'kj-lab-public-assets' is publicly accessible via an AllUsers ACL grant with no Public Access Block configured.",
+      "remediation": "Enable S3 Block Public Access at the bucket and account level and remove the AllUsers ACL grant.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "IAM-002",
+      "name": "IAM User with Administrator Privileges",
+      "severity": "High",
+      "framework_mapping": "CIS AWS 1.16 / NIST AC-6",
+      "resource": "arn:aws:iam::123456789012:user/devops-dan",
+      "description": "IAM user 'devops-dan' has the AdministratorAccess policy attached directly, violating least privilege.",
+      "remediation": "Replace AdministratorAccess with scoped policies and assume admin via an STS role with MFA.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "IAM-004",
+      "name": "Console User Without MFA",
+      "severity": "High",
+      "framework_mapping": "CIS AWS 1.10 / NIST IA-2",
+      "resource": "iam-user/devops-dan",
+      "description": "IAM user 'devops-dan' has console access but no MFA device registered.",
+      "remediation": "Enforce MFA via an aws:MultiFactorAuthPresent policy condition and register an MFA device.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "EC2-001",
+      "name": "Security Group Allows Unrestricted SSH Access",
+      "severity": "High",
+      "framework_mapping": "CIS AWS 5.2 / NIST SC-7",
+      "resource": "sg-0a1b2c3d4e5f6a7b8",
+      "description": "Security group 'sg-0a1b2c3d4e5f6a7b8' permits inbound SSH (port 22) from 0.0.0.0/0, exposing the host to internet-wide brute force.",
+      "remediation": "Restrict the SSH rule to trusted CIDRs or use SSM Session Manager; remove the 0.0.0.0/0 ingress rule.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "EC2-001",
+      "name": "Security Group Allows Unrestricted RDP Access",
+      "severity": "High",
+      "framework_mapping": "CIS AWS 5.2 / NIST SC-7",
+      "resource": "sg-0a1b2c3d4e5f6a7b8",
+      "description": "Security group 'sg-0a1b2c3d4e5f6a7b8' permits inbound RDP (port 3389) from 0.0.0.0/0.",
+      "remediation": "Restrict the RDP rule to trusted CIDRs or use a bastion; remove the 0.0.0.0/0 ingress rule.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "CT-001",
+      "name": "CloudTrail Not Enabled in All Regions",
+      "severity": "High",
+      "framework_mapping": "CIS AWS 3.1 / NIST AU-12",
+      "resource": "cloudtrail/account",
+      "description": "No multi-region CloudTrail trail is actively logging; API activity in unmonitored regions goes unrecorded.",
+      "remediation": "Create a multi-region trail logging management events for all regions and confirm it is in the 'Logging' state.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "S3-002",
+      "name": "S3 Bucket Logging Not Enabled",
+      "severity": "Medium",
+      "framework_mapping": "CIS AWS 2.1.2 / NIST AU-2",
+      "resource": "s3://kj-lab-public-assets",
+      "description": "Bucket 'kj-lab-public-assets' does not have server access logging enabled, reducing forensic visibility.",
+      "remediation": "Enable server access logging and ship logs to a dedicated, access-restricted log bucket.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "S3-003",
+      "name": "S3 Default Encryption Not Enabled",
+      "severity": "Medium",
+      "framework_mapping": "CIS AWS 2.1.1 / NIST SC-28",
+      "resource": "s3://kj-lab-backups",
+      "description": "Bucket 'kj-lab-backups' has no default server-side encryption configured.",
+      "remediation": "Enable default encryption (SSE-S3 or SSE-KMS) and deny unencrypted PutObject via bucket policy.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "CT-002",
+      "name": "CloudTrail Log File Validation Disabled",
+      "severity": "Medium",
+      "framework_mapping": "CIS AWS 3.2 / NIST AU-9",
+      "resource": "arn:aws:cloudtrail:eu-west-2:123456789012:trail/kj-lab-trail",
+      "description": "Trail 'kj-lab-trail' does not have log file integrity validation enabled.",
+      "remediation": "Enable log file validation so CloudTrail produces signed digest files for integrity verification.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "IAM-003",
+      "name": "Access Key Not Rotated in 90 Days",
+      "severity": "Medium",
+      "framework_mapping": "CIS AWS 1.14 / NIST IA-5",
+      "resource": "iam-user/ci-bot#key1",
+      "description": "Access key 1 for user 'ci-bot' was last rotated more than 90 days ago.",
+      "remediation": "Rotate the access key and migrate to short-lived STS credentials where possible.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "IAM-005",
+      "name": "Weak IAM Password Policy",
+      "severity": "Medium",
+      "framework_mapping": "CIS AWS 1.8 / NIST IA-5",
+      "resource": "account-password-policy",
+      "description": "The account password policy is weak: minimum length < 14, symbols not required.",
+      "remediation": "Set a password policy requiring at least 14 characters with mixed character classes.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "S3-004",
+      "name": "S3 Bucket Versioning Disabled",
+      "severity": "Low",
+      "framework_mapping": "CIS AWS 2.1.4 / NIST CP-9",
+      "resource": "s3://kj-lab-backups",
+      "description": "Bucket 'kj-lab-backups' does not have versioning enabled, so overwritten/deleted objects cannot be recovered.",
+      "remediation": "Enable versioning and consider MFA Delete plus lifecycle rules.",
+      "status": "FAIL"
+    },
+    {
+      "check_id": "EC2-003",
+      "name": "Default Security Group Allows Inbound Traffic",
+      "severity": "Low",
+      "framework_mapping": "CIS AWS 5.4 / NIST SC-7",
+      "resource": "sg-00default00default0",
+      "description": "The default security group has inbound rules and is attached to workloads.",
+      "remediation": "Remove all rules from the default security group and use purpose-built SGs.",
+      "status": "FAIL"
+    }
+  ]
+}

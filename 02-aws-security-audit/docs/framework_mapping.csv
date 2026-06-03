@@ -1,0 +1,16 @@
+Check ID,Check Name,Service,Severity,CIS AWS Benchmark,NIST CSF / 800-53
+IAM-001,Root Account MFA Not Enabled,IAM,Critical,CIS 1.5,AC-2
+IAM-002,IAM User with Administrator Privileges,IAM,High,CIS 1.16,AC-6
+IAM-003,Access Key Not Rotated in 90 Days,IAM,Medium,CIS 1.14,IA-5
+IAM-004,Console User Without MFA,IAM,High,CIS 1.10,IA-2
+IAM-005,Weak IAM Password Policy,IAM,Medium,CIS 1.8,IA-5
+S3-001,S3 Bucket Publicly Accessible,S3,Critical,CIS 2.1.5,SC-7
+S3-002,S3 Bucket Logging Not Enabled,S3,Medium,CIS 2.1.2,AU-2
+S3-003,S3 Default Encryption Not Enabled,S3,Medium,CIS 2.1.1,SC-28
+S3-004,S3 Bucket Versioning Disabled,S3,Low,CIS 2.1.4,CP-9
+EC2-001,Security Group Allows Unrestricted Sensitive Port,EC2,High,CIS 5.2,SC-7
+EC2-002,EBS Encryption By Default Disabled,EC2,Medium,CIS 2.2.1,SC-28
+EC2-003,Default Security Group Allows Inbound Traffic,EC2,Low,CIS 5.4,SC-7
+CT-001,CloudTrail Not Enabled in All Regions,CloudTrail,High,CIS 3.1,AU-12
+CT-002,CloudTrail Log File Validation Disabled,CloudTrail,Medium,CIS 3.2,AU-9
+CT-003,CloudTrail Logs Not Encrypted with KMS CMK,CloudTrail,Low,CIS 3.7,SC-28

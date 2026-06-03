@@ -1,0 +1,79 @@
+{
+  "title": "SOC Home Lab - Detection Overview",
+  "description": "Dashboard Studio definition visualising the lab's MITRE ATT&CK detections. Import via Splunk > Dashboards > Create New Dashboard > Dashboard Studio > Source.",
+  "visualizations": {
+    "viz_failed_logins": {
+      "type": "splunk.column",
+      "title": "Failed Logins by Source IP (Brute Force - T1110)",
+      "dataSources": { "primary": "ds_failed_logins" }
+    },
+    "viz_powershell": {
+      "type": "splunk.table",
+      "title": "Suspicious PowerShell Executions (T1059.001)",
+      "dataSources": { "primary": "ds_powershell" }
+    },
+    "viz_lsass": {
+      "type": "splunk.singlevalue",
+      "title": "LSASS Access Alerts (Credential Dumping - T1003)",
+      "options": { "majorColor": "#c0392b" },
+      "dataSources": { "primary": "ds_lsass" }
+    },
+    "viz_new_services": {
+      "type": "splunk.table",
+      "title": "New Services Installed (T1543.003)",
+      "dataSources": { "primary": "ds_new_services" }
+    },
+    "viz_technique_breakdown": {
+      "type": "splunk.pie",
+      "title": "Alerts by MITRE Technique",
+      "dataSources": { "primary": "ds_technique_breakdown" }
+    }
+  },
+  "dataSources": {
+    "ds_failed_logins": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=windows EventCode=4625 | stats count by src_ip, Account_Name | where count > 5 | sort - count",
+        "queryParameters": { "earliest": "-24h", "latest": "now" }
+      }
+    },
+    "ds_powershell": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=windows (EventCode=4688 OR (source=\"*Sysmon*\" EventCode=1)) CommandLine=\"*powershell*\" (CommandLine=\"*-enc*\" OR CommandLine=\"*IEX*\" OR CommandLine=\"*DownloadString*\") | stats count by CommandLine, User, host | sort - count",
+        "queryParameters": { "earliest": "-24h", "latest": "now" }
+      }
+    },
+    "ds_lsass": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=windows source=\"*Sysmon*\" EventCode=10 TargetImage=\"*\\\\lsass.exe\" | stats count",
+        "queryParameters": { "earliest": "-24h", "latest": "now" }
+      }
+    },
+    "ds_new_services": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=windows EventCode=7045 | table _time ServiceName ServiceFileName host | sort - _time",
+        "queryParameters": { "earliest": "-24h", "latest": "now" }
+      }
+    },
+    "ds_technique_breakdown": {
+      "type": "ds.search",
+      "options": {
+        "query": "index=windows (EventCode=4625 OR EventCode=7045 OR EventCode=1102 OR (source=\"*Sysmon*\" (EventCode=10 OR EventCode=13))) | eval technique=case(EventCode=4625,\"T1110 Brute Force\", EventCode=7045,\"T1543 New Service\", EventCode=1102,\"T1070 Log Clear\", EventCode=10,\"T1003 Cred Dump\", EventCode=13,\"T1547 Persistence\") | stats count by technique",
+        "queryParameters": { "earliest": "-24h", "latest": "now" }
+      }
+    }
+  },
+  "layout": {
+    "type": "grid",
+    "structure": [
+      { "item": "viz_lsass", "position": { "x": 0, "y": 0, "w": 400, "h": 150 } },
+      { "item": "viz_technique_breakdown", "position": { "x": 400, "y": 0, "w": 800, "h": 300 } },
+      { "item": "viz_failed_logins", "position": { "x": 0, "y": 150, "w": 400, "h": 150 } },
+      { "item": "viz_powershell", "position": { "x": 0, "y": 300, "w": 600, "h": 300 } },
+      { "item": "viz_new_services", "position": { "x": 600, "y": 300, "w": 600, "h": 300 } }
+    ]
+  }
+}

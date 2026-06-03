@@ -1,0 +1,21 @@
+{
+  "generated_at": "2026-06-03T09:00:00+00:00",
+  "note": "Bundled demo dataset of enriched IOCs (anonymised/representative). Used by `python main.py --demo` and the Streamlit dashboard's demo mode. Documentation/RFC ranges are used for IP examples.",
+  "total_iocs": 14,
+  "iocs": [
+    { "ioc": "45.155.205.233", "type": "ip", "source": "Feodo Tracker, AbuseIPDB", "first_seen": "2026-06-02T22:10:00+00:00", "tags": ["Emotet", "c2:443", "RU"], "vt_detection_ratio": 0.62, "vt_malicious": 56, "vt_total": 90, "abuseipdb_score": 100, "abuseipdb_country": "RU" },
+    { "ioc": "193.42.33.14", "type": "ip", "source": "AbuseIPDB", "first_seen": "2026-06-03T03:00:00+00:00", "tags": ["ssh-bruteforce", "NL"], "vt_detection_ratio": 0.18, "vt_malicious": 16, "vt_total": 89, "abuseipdb_score": 92, "abuseipdb_country": "NL" },
+    { "ioc": "http://secure-login-update.example/onedrive/auth.php", "type": "url", "source": "URLhaus", "first_seen": "2026-06-02T18:42:00+00:00", "tags": ["phishing", "credential-harvesting"], "vt_detection_ratio": 0.41, "vt_malicious": 30, "vt_total": 73 },
+    { "ioc": "cdn-update-server.example", "type": "domain", "source": "ThreatFox", "first_seen": "2026-06-01T11:05:00+00:00", "tags": ["Cobalt Strike", "c2"], "vt_detection_ratio": 0.55, "vt_malicious": 40, "vt_total": 73 },
+    { "ioc": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "type": "hash", "source": "ThreatFox", "first_seen": "2026-05-30T08:15:00+00:00", "tags": ["AgentTesla", "stealer"], "vt_detection_ratio": 0.71, "vt_malicious": 52, "vt_total": 73 },
+    { "ioc": "91.219.236.18", "type": "ip", "source": "Feodo Tracker", "first_seen": "2026-05-29T14:00:00+00:00", "tags": ["TrickBot", "c2:449"], "vt_detection_ratio": 0.48, "vt_malicious": 35, "vt_total": 73, "abuseipdb_score": 84 },
+    { "ioc": "http://203.0.113.77/gate.php", "type": "url", "source": "URLhaus, ThreatFox", "first_seen": "2026-06-03T06:30:00+00:00", "tags": ["RedLine", "c2"], "vt_detection_ratio": 0.33, "vt_malicious": 24, "vt_total": 73 },
+    { "ioc": "malware-delivery.example", "type": "domain", "source": "AlienVault OTX", "first_seen": "2026-05-25T09:00:00+00:00", "tags": ["Qakbot", "loader"], "vt_detection_ratio": 0.27, "vt_malicious": 20, "vt_total": 73 },
+    { "ioc": "d41d8cd98f00b204e9800998ecf8427e", "type": "hash", "source": "AlienVault OTX", "first_seen": "2026-05-20T12:00:00+00:00", "tags": ["test-eicar"], "vt_detection_ratio": 0.05, "vt_malicious": 3, "vt_total": 64 },
+    { "ioc": "198.51.100.42", "type": "ip", "source": "AbuseIPDB", "first_seen": "2026-06-02T20:00:00+00:00", "tags": ["scanner", "US"], "vt_detection_ratio": 0.09, "vt_malicious": 8, "vt_total": 89, "abuseipdb_score": 76, "abuseipdb_country": "US" },
+    { "ioc": "http://192.0.2.55/payload.bin", "type": "url", "source": "URLhaus", "first_seen": "2026-06-01T23:15:00+00:00", "tags": ["dropper"], "vt_detection_ratio": 0.38, "vt_malicious": 28, "vt_total": 73 },
+    { "ioc": "update.fake-cdn.example", "type": "domain", "source": "ThreatFox", "first_seen": "2026-05-28T07:45:00+00:00", "tags": ["BumbleBee", "loader"], "vt_detection_ratio": 0.44, "vt_malicious": 32, "vt_total": 73 },
+    { "ioc": "5d41402abc4b2a76b9719d911017c592", "type": "hash", "source": "ThreatFox", "first_seen": "2026-06-02T16:20:00+00:00", "tags": ["Lumma", "stealer"], "vt_detection_ratio": 0.66, "vt_malicious": 48, "vt_total": 73 },
+    { "ioc": "185.220.101.9", "type": "ip", "source": "AbuseIPDB", "first_seen": "2026-05-15T10:00:00+00:00", "tags": ["tor-exit", "DE"], "vt_detection_ratio": 0.12, "vt_malicious": 11, "vt_total": 89, "abuseipdb_score": 60, "abuseipdb_country": "DE" }
+  ]
+}

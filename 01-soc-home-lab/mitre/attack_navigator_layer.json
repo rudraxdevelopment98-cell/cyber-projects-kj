@@ -1,0 +1,42 @@
+{
+  "name": "SOC Home Lab - Detection Coverage",
+  "versions": {
+    "attack": "14",
+    "navigator": "4.9.1",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "Techniques simulated with Atomic Red Team and detected in Splunk during the SOC Home Lab project by Kuldeep J. Jotaniya.",
+  "filters": { "platforms": ["Windows"] },
+  "sorting": 0,
+  "layout": { "layout": "side", "showName": true, "showID": true },
+  "hideDisabled": false,
+  "gradient": {
+    "colors": ["#ffffff", "#66b1ff", "#0b5cad"],
+    "minValue": 0,
+    "maxValue": 3
+  },
+  "legendItems": [
+    { "label": "Detected (high confidence)", "color": "#0b5cad" },
+    { "label": "Detected (partial)", "color": "#66b1ff" }
+  ],
+  "techniques": [
+    { "techniqueID": "T1059.001", "score": 3, "color": "#0b5cad", "comment": "UC-001 suspicious PowerShell (encoded/IEX/DownloadString)" },
+    { "techniqueID": "T1110", "score": 3, "color": "#0b5cad", "comment": "UC-002 failed-logon brute force threshold" },
+    { "techniqueID": "T1078", "score": 2, "color": "#66b1ff", "comment": "UC-002 valid-accounts success after brute force" },
+    { "techniqueID": "T1543.003", "score": 3, "color": "#0b5cad", "comment": "UC-003 new service installed (EventCode 7045)" },
+    { "techniqueID": "T1003.001", "score": 3, "color": "#0b5cad", "comment": "UC-004 LSASS access via Sysmon EventCode 10" },
+    { "techniqueID": "T1547.001", "score": 3, "color": "#0b5cad", "comment": "UC-005 registry Run key persistence (Sysmon 13)" },
+    { "techniqueID": "T1105", "score": 3, "color": "#0b5cad", "comment": "UC-006 ingress tool transfer via certutil/bitsadmin" },
+    { "techniqueID": "T1071", "score": 2, "color": "#66b1ff", "comment": "UC-007 C2 beacon to rare external destinations" },
+    { "techniqueID": "T1190", "score": 2, "color": "#66b1ff", "comment": "UC-008 web server spawning shells" },
+    { "techniqueID": "T1136", "score": 3, "color": "#0b5cad", "comment": "UC-009 account creation (EventCode 4720)" },
+    { "techniqueID": "T1098", "score": 2, "color": "#66b1ff", "comment": "UC-009 privileged group membership change" },
+    { "techniqueID": "T1562.001", "score": 3, "color": "#0b5cad", "comment": "UC-010 Defender/firewall tampering" },
+    { "techniqueID": "T1053.005", "score": 3, "color": "#0b5cad", "comment": "UC-011 scheduled task persistence" },
+    { "techniqueID": "T1070.001", "score": 3, "color": "#0b5cad", "comment": "UC-012 Windows event log cleared (1102/104)" }
+  ],
+  "showTacticRowBackground": true,
+  "tacticRowBackground": "#205b8f",
+  "selectTechniquesAcrossTactics": true
+}

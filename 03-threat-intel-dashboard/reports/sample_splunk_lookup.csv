@@ -1,0 +1,15 @@
+ioc,type,source,risk_score,severity,vt_detection_ratio,abuseipdb_score,first_seen,tags
+45.155.205.233,ip,"Feodo Tracker, AbuseIPDB",8,Critical,0.62,100,2026-06-02T22:10:00+00:00,Emotet|c2:443|RU
+91.219.236.18,ip,Feodo Tracker,7,High,0.48,84,2026-05-29T14:00:00+00:00,TrickBot|c2:449
+193.42.33.14,ip,AbuseIPDB,6,High,0.18,92,2026-06-03T03:00:00+00:00,ssh-bruteforce|NL
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,hash,ThreatFox,6,High,0.71,,2026-05-30T08:15:00+00:00,AgentTesla|stealer
+5d41402abc4b2a76b9719d911017c592,hash,ThreatFox,6,High,0.66,,2026-06-02T16:20:00+00:00,Lumma|stealer
+http://secure-login-update.example/onedrive/auth.php,url,URLhaus,5,Medium,0.41,,2026-06-02T18:42:00+00:00,phishing|credential-harvesting
+cdn-update-server.example,domain,ThreatFox,5,Medium,0.55,,2026-06-01T11:05:00+00:00,Cobalt Strike|c2
+198.51.100.42,ip,AbuseIPDB,5,Medium,0.09,76,2026-06-02T20:00:00+00:00,scanner|US
+http://203.0.113.77/gate.php,url,"URLhaus, ThreatFox",4,Medium,0.33,,2026-06-03T06:30:00+00:00,RedLine|c2
+http://192.0.2.55/payload.bin,url,URLhaus,4,Medium,0.38,,2026-06-01T23:15:00+00:00,dropper
+update.fake-cdn.example,domain,ThreatFox,4,Medium,0.44,,2026-05-28T07:45:00+00:00,BumbleBee|loader
+185.220.101.9,ip,AbuseIPDB,4,Medium,0.12,60,2026-05-15T10:00:00+00:00,tor-exit|DE
+malware-delivery.example,domain,AlienVault OTX,3,Low,0.27,,2026-05-25T09:00:00+00:00,Qakbot|loader
+d41d8cd98f00b204e9800998ecf8427e,hash,AlienVault OTX,2,Low,0.05,,2026-05-20T12:00:00+00:00,test-eicar
