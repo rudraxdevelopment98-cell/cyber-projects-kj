@@ -20,3 +20,6 @@ Thumbs.db
 # IDE
 .vscode/
 .idea/
+
+# Pages assembly output (built in CI)
+_site/

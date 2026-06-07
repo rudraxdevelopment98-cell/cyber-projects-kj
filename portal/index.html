@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kuldeep J. Jotaniya — SOC Analyst Portfolio</title>
+<meta name="description" content="SOC Analyst portfolio of Kuldeep J. Jotaniya — SOC Home Lab (Splunk), AWS Security Audit, and a Threat Intelligence Dashboard. MSc Cyber Security, Ravensbourne University." />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A1%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+<style>
+  :root {
+    --bg: #060a0f;
+    --panel: #0a1520;
+    --border: #1a2a3a;
+    --muted: #3a5a7a;
+    --dim: #2a4a6a;
+    --text: #c8d6e5;
+    --bright: #e8f4ff;
+    --cyan: #00d4ff;
+    --orange: #ff6b2b;
+    --purple: #b44dff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sans { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---- Top bar ---- */
+  .topbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 18px 28px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(90deg, #060a0f 0%, #0d1824 100%);
+    position: sticky; top: 0; z-index: 10;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+  .topbar .name { color: var(--cyan); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; }
+  .topbar .role { color: var(--dim); margin-left: auto; font-size: 11px; letter-spacing: 1px; }
+
+  /* ---- Hero ---- */
+  .hero { max-width: 1000px; margin: 0 auto; padding: 64px 28px 32px; }
+  .hero .tag { color: var(--cyan); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; }
+  .hero h1 { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: clamp(28px, 6vw, 48px); margin: 0 0 14px; color: var(--bright); font-weight: 800; line-height: 1.1; }
+  .hero p { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: clamp(14px, 2.5vw, 17px); color: var(--muted); max-width: 680px; margin: 0 0 24px; }
+  .hero .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 6px; font-size: 12px; letter-spacing: 1px;
+    border: 1px solid var(--border); background: var(--panel); color: var(--bright);
+    transition: all .18s; cursor: pointer;
+  }
+  .btn:hover { border-color: var(--cyan); box-shadow: 0 0 0 1px var(--cyan); transform: translateY(-1px); }
+  .btn.primary { background: rgba(0,212,255,.12); border-color: rgba(0,212,255,.4); color: var(--cyan); }
+
+  /* ---- Section heading ---- */
+  .section { max-width: 1000px; margin: 0 auto; padding: 16px 28px 0; }
+  .section-label { font-size: 10px; color: var(--dim); letter-spacing: 3px; margin: 32px 0 18px; }
+
+  /* ---- Project cards ---- */
+  .grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  @media (min-width: 760px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-top: 3px solid var(--accent);
+    border-radius: 8px; padding: 22px; display: flex; flex-direction: column;
+    transition: transform .18s, border-color .18s;
+  }
+  .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .card .icon { font-size: 30px; margin-bottom: 12px; }
+  .card .pnum { font-size: 10px; letter-spacing: 2px; color: var(--accent); margin-bottom: 6px; }
+  .card h3 { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 18px; margin: 0 0 6px; color: var(--bright); }
+  .card .sub { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 12.5px; color: var(--muted); margin-bottom: 16px; flex: 0 0 auto; min-height: 52px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+  .tag-chip { font-family: -apple-system, sans-serif; font-size: 10px; padding: 3px 9px; border-radius: 3px; background: #07111b; border: 1px solid var(--chip); color: var(--chiptext); }
+  .card .links { display: flex; gap: 10px; margin-top: auto; flex-wrap: wrap; }
+  .card .links a { font-size: 11px; letter-spacing: 1px; color: var(--accent); border: 1px solid var(--chip); padding: 7px 12px; border-radius: 5px; transition: all .15s; }
+  .card .links a:hover { background: var(--accentbg); }
+
+  /* ---- Highlights row ---- */
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 8px; }
+  @media (min-width: 620px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+  .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 8px; padding: 18px; text-align: center; }
+  .stat .n { font-size: 26px; font-weight: 800; color: var(--cyan); font-family: -apple-system, sans-serif; }
+  .stat .l { font-family: -apple-system, sans-serif; font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* ---- Footer ---- */
+  footer { max-width: 1000px; margin: 56px auto 0; padding: 28px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  footer .copy { font-family: -apple-system, sans-serif; font-size: 12px; color: var(--dim); }
+  footer .social { margin-left: auto; display: flex; gap: 14px; }
+  footer .social a { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
+  footer .social a:hover { color: var(--cyan); }
+  .note { font-family: -apple-system, sans-serif; font-size: 11px; color: var(--dim); max-width: 1000px; margin: 18px auto 40px; padding: 0 28px; }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="dot"></span>
+    <span class="name">KULDEEP J. JOTANIYA</span>
+    <span class="role">SOC ANALYST &nbsp;·&nbsp; PORTFOLIO</span>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="tag">SOC ANALYST · BLUE TEAM · CLOUD SECURITY</div>
+    <h1>Kuldeep J. Jotaniya</h1>
+    <p class="sans">
+      Entry-level SOC Analyst and MSc Cyber Security graduate (Ravensbourne
+      University, 2025). I build hands-on detection, cloud-security and threat-
+      intelligence projects that mirror real Security Operations Center workflows.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/rudraxdevelopment98-cell" target="_blank" rel="noreferrer">▸ GitHub Profile</a>
+      <a class="btn" href="https://rudraxdevelopment98-cell.github.io/cyber-projects-kj/showcase/" target="_blank" rel="noreferrer">⊞ Interactive Showcase</a>
+      <a class="btn" href="#projects">↓ View Projects</a>
+      <a class="btn" href="mailto:kuldeepjotaniya83@gmail.com">✉ Contact</a>
+    </div>
+  </header>
+
+  <!-- Stats -->
+  <section class="section">
+    <div class="stats">
+      <div class="stat"><div class="n">3</div><div class="l">Advanced projects</div></div>
+      <div class="stat"><div class="n">12+</div><div class="l">MITRE ATT&CK detections</div></div>
+      <div class="stat"><div class="n">15</div><div class="l">AWS audit checks</div></div>
+      <div class="stat"><div class="n">5</div><div class="l">OSINT threat feeds</div></div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section" id="projects">
+    <div class="section-label">FEATURED PROJECTS</div>
+    <div class="grid">
+
+      <!-- Project 1 -->
+      <article class="card" style="--accent:#00d4ff; --chip:#0e3a4a; --chiptext:#6ad0ee; --accentbg:rgba(0,212,255,.12);">
+        <div class="icon">🛡️</div>
+        <div class="pnum">PROJECT 01 · SOC / SIEM</div>
+        <h3>SOC Home Lab</h3>
+        <div class="sub sans">Real-time threat detection with Splunk SIEM, Sysmon &amp; Atomic Red Team — 12 MITRE ATT&amp;CK detections and a full incident response report.</div>
+        <div class="tags">
+          <span class="tag-chip">Splunk</span>
+          <span class="tag-chip">Sysmon</span>
+          <span class="tag-chip">Atomic Red Team</span>
+          <span class="tag-chip">MITRE ATT&amp;CK</span>
+          <span class="tag-chip">Python</span>
+        </div>
+        <div class="links">
+          <a href="https://github.com/rudraxdevelopment98-cell/cyber-projects-kj/tree/main/01-soc-home-lab" target="_blank" rel="noreferrer">View code →</a>
+        </div>
+      </article>
+
+      <!-- Project 2 -->
+      <article class="card" style="--accent:#ff6b2b; --chip:#4a2410; --chiptext:#ff9d6b; --accentbg:rgba(255,107,43,.12);">
+        <div class="icon">☁️</div>
+        <div class="pnum">PROJECT 02 · CLOUD SECURITY</div>
+        <h3>AWS Security Audit</h3>
+        <div class="sub sans">Python/Boto3 CSPM tool with 15 read-only checks across IAM, S3, EC2 &amp; CloudTrail, mapped to CIS Benchmark &amp; NIST, with an executive HTML report.</div>
+        <div class="tags">
+          <span class="tag-chip">Python</span>
+          <span class="tag-chip">Boto3</span>
+          <span class="tag-chip">AWS</span>
+          <span class="tag-chip">CIS Benchmark</span>
+          <span class="tag-chip">NIST CSF</span>
+        </div>
+        <div class="links">
+          <a href="https://github.com/rudraxdevelopment98-cell/cyber-projects-kj/tree/main/02-aws-security-audit" target="_blank" rel="noreferrer">View code →</a>
+        </div>
+      </article>
+
+      <!-- Project 3 -->
+      <article class="card" style="--accent:#b44dff; --chip:#33184a; --chiptext:#c98dff; --accentbg:rgba(180,77,255,.12);">
+        <div class="icon">🔍</div>
+        <div class="pnum">PROJECT 03 · THREAT INTEL</div>
+        <h3>Threat Intelligence Dashboard</h3>
+        <div class="sub sans">IOC aggregator over 5 OSINT feeds with VirusTotal/AbuseIPDB enrichment, a 1–10 risk-scoring engine and an interactive Streamlit dashboard.</div>
+        <div class="tags">
+          <span class="tag-chip">Python</span>
+          <span class="tag-chip">Streamlit</span>
+          <span class="tag-chip">VirusTotal</span>
+          <span class="tag-chip">AbuseIPDB</span>
+          <span class="tag-chip">OSINT</span>
+        </div>
+        <div class="links">
+          <a href="https://github.com/rudraxdevelopment98-cell/cyber-projects-kj/tree/main/03-threat-intel-dashboard" target="_blank" rel="noreferrer">View code →</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <p class="note">
+    ⚠️ All offensive techniques and audit tooling in these projects are for authorised,
+    isolated lab use only. Built and documented by Kuldeep J. Jotaniya as an entry-level
+    SOC Analyst portfolio.
+  </p>
+
+  <footer>
+    <span class="copy">© 2026 Kuldeep J. Jotaniya · MSc Cyber Security, Ravensbourne University</span>
+    <span class="social">
+      <a href="https://github.com/rudraxdevelopment98-cell" target="_blank" rel="noreferrer">GITHUB</a>
+      <a href="mailto:kuldeepjotaniya83@gmail.com">EMAIL</a>
+    </span>
+  </footer>
+</body>
+</html>

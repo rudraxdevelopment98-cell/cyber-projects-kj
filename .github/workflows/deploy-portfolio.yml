@@ -1,22 +1,23 @@
-name: Deploy Portfolio Site
+name: Deploy Portal + Showcase
 
-# Build the Vite portfolio site and publish it to GitHub Pages.
-# Runs on every push to main that touches the site, and can be triggered manually.
+# Builds and publishes the GitHub Pages site for this repo:
+#   /            -> static portal landing page (portal/index.html)
+#   /showcase/   -> interactive React showcase (Vite build of portfolio-site/)
+# Runs on pushes to main that touch the site, and can be triggered manually.
 on:
   push:
     branches: [main]
     paths:
       - "portfolio-site/**"
+      - "portal/**"
       - ".github/workflows/deploy-portfolio.yml"
   workflow_dispatch:
 
-# Permissions required for the GitHub Pages deployment.
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment.
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -24,9 +25,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: portfolio-site
     steps:
       - uses: actions/checkout@v4
 
@@ -36,16 +34,23 @@ jobs:
           cache: npm
           cache-dependency-path: portfolio-site/package-lock.json
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Build interactive showcase (Vite)
+        working-directory: portfolio-site
+        run: |
+          npm ci
+          npm run build
 
-      - name: Build
-        run: npm run build
+      - name: Assemble Pages site (portal at root, showcase at /showcase)
+        run: |
+          mkdir -p _site
+          cp portal/index.html _site/index.html
+          mkdir -p _site/showcase
+          cp -r portfolio-site/dist/* _site/showcase/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: portfolio-site/dist
+          path: _site
 
   deploy:
     needs: build
