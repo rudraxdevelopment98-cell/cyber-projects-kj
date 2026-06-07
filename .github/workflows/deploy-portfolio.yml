@@ -44,6 +44,7 @@ jobs:
         run: |
           mkdir -p _site
           cp portal/index.html _site/index.html
+          cp portal/404.html _site/404.html
           mkdir -p _site/showcase
           cp -r portfolio-site/dist/* _site/showcase/
 
