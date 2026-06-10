@@ -1,0 +1,8 @@
+# Root dependencies for deploying the Project 3 Threat Intelligence Dashboard
+# to Streamlit Community Cloud.
+#   Entry point: 03-threat-intel-dashboard/dashboard/app.py
+# (Each project also has its own requirements.txt in its folder.)
+streamlit>=1.30.0
+pandas>=2.0.0
+plotly>=5.18.0
+requests>=2.31.0
